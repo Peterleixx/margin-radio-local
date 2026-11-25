@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.env.*
+.venv/
+.bootstrap/
+__pycache__/
+data/
+*.sqlite*
+*.mp3
+*.pcm
+*.pem
+*.key
+credentials/
+.ruff_cache/

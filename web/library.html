@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fafbf8">
+  <title>节目库 · 页边电台</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/library.css">
+  <script src="/library.js" defer></script>
+  <script src="/settings.js" defer></script>
+</head>
+<body>
+  <header class="wrap masthead">
+    <a class="brand" href="/"><span class="signal" aria-hidden="true"><i></i><i></i><i></i><i></i></span>页边电台</a>
+    <nav aria-label="节目库工具">
+      <button id="settings" type="button">配音设置</button>
+      <button id="how" type="button">使用方法</button>
+    </nav>
+  </header>
+  <main class="wrap library">
+    <p id="active-voice" role="status"></p>
+    <details class="compose"><summary>用自己的听稿制作一期</summary>
+      <form id="compose"><label>节目标题<input id="draft-title" required maxlength="180"></label>
+        <label>听稿正文<textarea id="draft-text" required maxlength="1800" rows="5"></textarea></label>
+        <button class="primary">生成本机 MP3</button>
+        <p id="job" role="status"></p>
+      </form>
+    </details>
+    <div class="list-heading"><h1>节目库</h1><span id="count"></span></div>
+    <p id="status" role="status">正在读取节目…</p>
+    <ul id="list" aria-label="节目列表"></ul>
+    <div id="notes" hidden>
+      <div id="chapters"></div>
+      <details id="materials">
+        <summary>节目摘要与来源</summary>
+        <p id="summary"></p>
+        <div id="readings"></div>
+      </details>
+    </div>
+  </main>
+  <section class="dock" id="player" aria-label="AI 配音播放器" hidden>
+    <div class="wrap">
+      <div class="now">
+        <strong id="title"></strong>
+        <div class="tools">
+          <select id="speed" aria-label="播放速度">
+            <option value="0.85">0.85×</option><option value="1" selected>1×</option>
+            <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+          </select>
+          <a id="download" download>下载</a>
+        </div>
+      </div>
+      <audio id="audio" preload="metadata" controls></audio>
+    </div>
+  </section>
+  <dialog id="voice-panel" aria-labelledby="voice-heading">
+    <header class="dialog-heading"><h2 id="voice-heading">配音设置</h2><button id="voice-close" type="button" aria-label="关闭配音设置">×</button></header>
+    <form id="voice-form">
+      <label>已存配置<select id="saved-profile"></select></label>
+      <label>供应商<select id="provider"></select></label>
+      <label>配置名称<input id="profile-name" required maxlength="80" placeholder="例如：读书旁白"></label>
+      <label>合成端点<input id="endpoint" type="url" required maxlength="1200"></label>
+      <label>TTS 模型<input id="model" required maxlength="200" placeholder="填写供应商提供的模型 ID"></label>
+      <label>音色或角色 ID<input id="voice" list="voices" required maxlength="200" placeholder="选择或输入音色 ID"><datalist id="voices"></datalist></label>
+      <label>API key<input id="api-key" type="password" autocomplete="off" spellcheck="false" maxlength="8192" aria-describedby="key-hint"></label>
+      <p id="key-hint" class="hint"></p>
+      <button class="primary" type="submit">保存并使用</button>
+    </form>
+    <p id="settings-result" role="status"></p>
+  </dialog>
+  <dialog id="panel" aria-labelledby="panel-title">
+    <header class="dialog-heading"><h2 id="panel-title">使用方法</h2><button id="close" type="button" aria-label="关闭">×</button></header>
+    <p>在「配音设置」中保存供应商、模型和音色后，展开「用自己的听稿制作一期」，粘贴正文即可生成音频。选择节目后，可以查看章节、续听或下载 MP3。</p>
+    <p>使用支持 MCP 的 Agent 时，可以说：</p>
+    <blockquote>把我选中的文章整理成三章中文播客，保留来源和主要例子，制作完成后给我本机收听链接。</blockquote>
+  </dialog>
+</body>
+</html>

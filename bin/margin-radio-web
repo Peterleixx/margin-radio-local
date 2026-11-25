@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")/.."
+umask 077
+if [ ! -x .venv/bin/python ]; then
+  echo "请先在仓库中运行 bin/setup。" >&2
+  exit 1
+fi
+exec .venv/bin/python -m radio.web
